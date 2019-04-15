@@ -393,7 +393,7 @@ def parserlog(jsonlog):
         if dst_host:
             if src_host:
                 # 判断攻击主机是否存在于白名单列表内
-                if src_host in whiteips():
+                if src_host in whiteips(2):
                     # 存在将white字段设置为1
                     white = 1
                 else:

@@ -17,7 +17,9 @@ from dbs.initdb import Base, engine, DBSession
 
 class Whiteip(Base):
     __tablename__ = 'Whiteip'
+    id = Column(Integer, autoincrement=True, primary_key=True)
     src_host = Column(String(50), nullable=False, primary_key=True)
+    description = Column(String(255),nullable=True,primary_key=False)
 
 
 def init_db():
