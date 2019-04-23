@@ -47,6 +47,7 @@ def hostonline():
 
 def getHoststatus():
     hosts = hostop.select_allhost()
+    print hosts
     if hosts:
         hostlists = []
         for h in hosts:
@@ -54,7 +55,8 @@ def getHoststatus():
                 "date": h.last_time.strftime("%Y-%m-%d %H:%M:%S"),
                 "name": h.hostname,
                 "address": h.ip,
-                "tag": h.status
+                "tag": h.status,
+                "whiteport": h.white_port
             }
             hostlists.append(hostdict)
         results = {"list": hostlists}
@@ -66,4 +68,5 @@ def getHoststatus():
 #     name: 'testhost',
 #     address: '100.10.10.10',
 #     tag: 'online'
+#     whiteport: '80'
 # }

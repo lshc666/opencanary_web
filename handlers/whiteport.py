@@ -11,7 +11,7 @@
 import tornado
 from base import BaseHandler
 from util.auth import jwtauth
-from service.whiteportservice import whiteports, insertports, deleteports
+from service.whiteportservice import updateports
 # from dbs.dal.LogOperate import LogOp
 import datetime
 import json
@@ -35,10 +35,9 @@ class WhiteportHandler(BaseHandler):
         # 接收提交过来的port
         if self.request.headers["Content-Type"].startswith("application/json"):
             json_args = json.loads(self.request.body.decode('utf-8'))
-            port_list = json_args["port"].split(",")
-            if port_list:
-                deleteports()
-                insertports(port_list)
+            port_str = json_args["port"]
+            port_agent = json_args["address"]
+            updateports(port_agent,port_str)
             self.write(json_args)
         else:
             self.json_args = None

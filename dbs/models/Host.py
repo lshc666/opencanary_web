@@ -23,6 +23,7 @@ class Host(Base):
     hostname = Column(String(50), nullable=False)
     ip = Column(String(50), nullable=False)
     status = Column(String(10), nullable=False)
+    white_port = Column(String(255), nullable=True)
 
     __table_args__ = (
         # 设置联合唯一索引

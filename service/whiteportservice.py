@@ -7,27 +7,21 @@
   Created: 2018-08-17 16:15:08
 """
 
-from dbs.dal.Whiteport import WhitePort
+from dbs.dal.Host import HostOp
 # import sys
 # sys.path.append("..")
 
-White_res = WhitePort()
+White_res = HostOp()
 
 
-def whiteports():
-    list_port = []
-    for port in White_res.select_white_port():
-        list_port.append(port[0])
-    return list_port
+def whiteports(dst_host):
+    return White_res.get_whiteport(dst_host)
 
-
-def insertports(list_port):
-    for p in list_port:
-        if p:
-            White_res.insert_white_port(int(p))
+def updateports(port_agent,str_port):
+    White_res.update_whiteport(port_agent,str_port)
     return True
 
 
-def deleteports():
-    White_res.delete_white_port()
-    return True
+# def deleteports():
+#     White_res.delete_white_port()
+#     return True

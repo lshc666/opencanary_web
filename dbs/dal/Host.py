@@ -37,6 +37,38 @@ class HostOp:
         finally:
             self.session.close()
 
+    def get_whiteport(self,dst_host):
+        """获取Agent端口白名单"""
+        try:
+            list_whiteport = []
+            get_whiteport = self.session.query(Host).filter(Host.ip == dst_host).first()
+            if (get_whiteport.white_port == None) or (len(get_whiteport.white_port.encode('utf8')) == 0) :
+                list_whiteport.append(int(65536))
+            else:            
+                list_whiteport = list(map(int,get_whiteport.white_port.split(',')))
+            return list_whiteport
+        except InvalidRequestError:
+            self.session.rollback()
+        except Exception as e:
+            print(e)
+        finally:
+            self.session.close()
+
+
+    def update_whiteport(self,port_agent,str_port):
+        """更新Agent端口白名单"""
+        try:
+            update_port = self.session.query(Host).filter(Host.ip == port_agent).first()
+            update_port.white_port = str_port
+            self.session.commit()
+            return True
+        except InvalidRequestError:
+            self.session.rollback()
+        except Exception as e:
+            print(e)
+        finally:
+            self.session.close()
+
     def select_data(self):
         """查询在线主机"""
         try:
